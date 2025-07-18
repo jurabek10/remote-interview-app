@@ -1,7 +1,7 @@
 "use client";
 
 import LoaderUI from "@/components/LoaderUI";
-import RecordingCard from "@/components/RecordingCard ";
+import RecordingCard from "@/components/RecordingCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useGetCalls from "@/hooks/useGetCalls";
 import { CallRecording } from "@stream-io/video-react-sdk";
@@ -17,9 +17,7 @@ function RecordingsPage() {
 
       try {
         // Get recordings for each call
-        const callData = await Promise.all(
-          calls.map((call) => call.queryRecordings())
-        );
+        const callData = await Promise.all(calls.map((call) => call.queryRecordings()));
         const allRecordings = callData.flatMap((call) => call.recordings);
 
         setRecordings(allRecordings);
@@ -38,8 +36,7 @@ function RecordingsPage() {
       {/* HEADER SECTION */}
       <h1 className="text-3xl font-bold">Recordings</h1>
       <p className="text-muted-foreground my-1">
-        {recordings.length}{" "}
-        {recordings.length === 1 ? "recording" : "recordings"} available
+        {recordings.length} {recordings.length === 1 ? "recording" : "recordings"} available
       </p>
 
       {/* RECORDINGS GRID */}
@@ -53,14 +50,11 @@ function RecordingsPage() {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-[400px] gap-4">
-            <p className="text-xl font-medium text-muted-foreground">
-              No recordings available
-            </p>
+            <p className="text-xl font-medium text-muted-foreground">No recordings available</p>
           </div>
         )}
       </ScrollArea>
     </div>
   );
 }
-
 export default RecordingsPage;

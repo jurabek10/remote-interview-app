@@ -4,20 +4,19 @@ import ActionCard from "@/components/ActionCard";
 import { QUICK_ACTIONS } from "@/constants";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useQuery } from "convex/react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "../../../../convex/_generated/api";
+import { useRouter } from "next/navigation";
+import MeetingModal from "@/components/MeetingModal";
 import LoaderUI from "@/components/LoaderUI";
 import { Loader2Icon } from "lucide-react";
-import MeetingModal from "@/components/MeetingModal";
 import MeetingCard from "@/components/MeetingCard";
 
 export default function Home() {
   const router = useRouter();
 
-  const interviews = useQuery(api.interviews.getMyInterviews);
   const { isInterviewer, isCandidate, isLoading } = useUserRole();
+  const interviews = useQuery(api.interviews.getMyInterviews);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"start" | "join">();
 
@@ -75,9 +74,7 @@ export default function Home() {
         <>
           <div>
             <h1 className="text-3xl font-bold">Your Interviews</h1>
-            <p className="text-muted-foreground mt-1">
-              View and join your scheduled interviews
-            </p>
+            <p className="text-muted-foreground mt-1">View and join your scheduled interviews</p>
           </div>
 
           <div className="mt-8">
@@ -88,7 +85,7 @@ export default function Home() {
             ) : interviews.length > 0 ? (
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {interviews.map((interview) => (
-                  <MeetingCard key={interview._id} />
+                  <MeetingCard key={interview._id} interview={interview} />
                 ))}
               </div>
             ) : (

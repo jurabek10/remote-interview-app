@@ -7,14 +7,13 @@ import useGetCallById from "@/hooks/useGetCallById";
 import { useUser } from "@clerk/nextjs";
 import { StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
 import { useParams } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
-type Props = {};
-
-function MeetingPage({}: Props) {
+function MeetingPage() {
   const { id } = useParams();
   const { isLoaded } = useUser();
   const { call, isCallLoading } = useGetCallById(id);
+
   const [isSetupComplete, setIsSetupComplete] = useState(false);
 
   if (!isLoaded || isCallLoading) return <LoaderUI />;
@@ -39,5 +38,4 @@ function MeetingPage({}: Props) {
     </StreamCall>
   );
 }
-
 export default MeetingPage;
